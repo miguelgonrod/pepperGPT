@@ -2,13 +2,14 @@
 
 import rospy
 from std_msgs.msg import String
-import openai
+from bardapi import Bard
+import os
 import speech_recognition as sr
 
-openai.api_key="Put here your openAI api key"
+os.environ['_BARD_API_KEY']="Put Here your Bard 'API' key"
 
 class Recognizer:
-    messages = [{"role": "system", "content": "You are a kind and helpful assistant"},]
+    message = ""
     node = "/speech"
     trainingMessages = ["De ahora en adelante eres pepper, el robot de softbank", "De ahora en adelante si no sabes una respuesta responde \"No se la respuesta, preguntale a mi supervisor\""]
     r = sr.Recognizer()
@@ -19,11 +20,8 @@ class Recognizer:
     def training(self):
         for message in self.trainingMessages:
             rospy.loginfo(message)
-            self.messages.append({"role": "user", "content": message},)
-            chat = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=self.messages)
-            reply = chat.choices[0].message.content
+            reply = Bard().get_answer(message)['content']
             rospy.loginfo(reply)
-            self.messages.append({"role": "assistant", "content": reply},)
 
     def voiceRecognition(self):
         with sr.Microphone() as source:
@@ -32,12 +30,9 @@ class Recognizer:
             try:
                 rospy.loginfo("Reconociendo...")
                 texto = self.r.recognize_google(audio, language="ES")
-                self.messages.append({"role": "user", "content": texto},)
-                chat = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=self.messages)
                 rospy.loginfo("Texto reconocido: " + texto)
-                reply = chat.choices[0].message.content
-                rospy.loginfo("ChatGPT: %s", reply)
-                self.messages.append({"role": "assistant", "content": reply},)
+                reply = Bard().get_answer(texto)['content']
+                rospy.loginfo("Bard: %s", reply)
                 return reply
 
             except sr.UnknownValueError:
