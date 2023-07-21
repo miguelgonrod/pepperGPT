@@ -9,11 +9,11 @@
 * [Licence](#licence)
 
 ## Description
-I made this project as my final project of junior II module in the RAS Javeriana student group, in this project you will find a node for ros 1 that allows pepper to communicate through ChatGPT api and python SpeechRecognition library.
+I made this a modification for my final project of junior II module in the RAS Javeriana student group, in this project you will find a node for ros 1 that allows pepper to communicate through Bard api and python SpeechRecognition library, this allow us to skip the ChatGPT API limit.
 
 ## Demostration
 
-https://github.com/miguelgonrod/pepperGPT/assets/49737722/b54c8ccd-6c8b-4726-853d-0ff8807e789b
+Still in progress...
 
 ## Technologies
 This project is created with:
@@ -25,7 +25,7 @@ To enable pepper topics please refer to this other repo I uploaded in which you 
 - bringup
 - naoqi driver
 
-Repository link:https://gitlab.com/IEEERASJaveriana/DockersforROS/docker_kinetic_pepper.git 
+Repository link: https://gitlab.com/IEEERASJaveriana/DockersforROS/docker_kinetic_pepper.git 
 
 ## Setup
 To run this project you need to have enabled pepper topics and have ros installed, you need to install these dependencies:
@@ -33,12 +33,12 @@ To run this project you need to have enabled pepper topics and have ros installe
 $ sudo apt-get install python3-pip python-pip libasound-dev portaudio19-dev libportaudio2 libportaudiocpp0
 $ sudo apt install ros-noetic-desktop-full
 $ pip install SpeechRecognition
-$ pip install pyaudio openai
+$ pip install pyaudio bardapi
 ```
 
 Now you need to clone this repository in your workspace, add your openAI api key and launch it using rosrun:
 
-To append your openAI api key in the scripts/Pepper_GPT.py file you need first to clone the repo with the command below, this api key have to be inside the the double quotation marks at line 8, if you dont know how to get your openAI api key check in this page: https://platform.openai.com/docs/quickstart/build-your-application
+To append your Bard 'API key' in the scripts/Pepper_Bard.py file you need first to clone the repo with the command below, this api key have to be inside the the double quotation marks at line 9, if you dont know how to get your Bard API key check in the original Bard API repo: https://github.com/dsdanielpark/Bard-API
 
 ```
 $ git clone https://github.com/miguelgonrod/pepperGPT.git
